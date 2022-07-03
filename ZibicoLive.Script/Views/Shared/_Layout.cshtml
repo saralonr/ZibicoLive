@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
+    <link rel="stylesheet" href="/css/tags/tags.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        var zbcScript = "@CommonHelpers.GetAppSettingKey("ScriptServerUrl")";
+        var zbcSocket = "@CommonHelpers.GetAppSettingKey("SocketServerUrl")";
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <script src="@CommonHelpers.GetAppSettingKey("SocketServerUrl")/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="@CommonHelpers.GetAppSettingKey("SocketServerUrl")/signalr/hubs"></script>
+    <script src="@CommonHelpers.GetAppSettingKey("SocketServerUrl")/Scripts/livehub.js"></script>
+    <style>
+        body{
+            background-color:transparent!important;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+</body>
+</html>

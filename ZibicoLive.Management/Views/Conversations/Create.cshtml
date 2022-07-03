@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Müşteri Akış Mesajları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DTOStepFlow flow = ViewBag.FlowSummary;
+}
+@model List<DTOStepFlowSummary>
+
+@section HeaderSection{
+    <style>
+        .chat-cmplt-wrap.chat-for-widgets-1 .recent-chat-box-wrap {
+            width: 100% !important;
+        }
+
+        .recent-chat-wrap .panel-heading .goto-back span {
+            width: 100% !important;
+        }
+    </style>
+
+}
+<div class="panel panel-default card-view" style="padding:5px;margin-bottom:0;">
+    <div class="panel-body" style="padding:5px;">
+        <div class="pull-left">
+            <a href="/Conversations/List" class="btn btn-primary"><i class="fa fa-arrow-left mr-10"></i>Listeye Dön</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-5"></div>
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@TempData["SuccessMessage"]
+                </div>
+            }
+
+            <div class="chat-cmplt-wrap chat-for-widgets-1">
+                <div class="recent-chat-box-wrap">
+                    <div class="recent-chat-wrap">
+                        <div class="panel-heading ma-0 pt-15">
+                            <div class="goto-back">
+                                <span class="inline-block txt-dark">Sohbet Akışı - @flow.Username</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body pa-0">
+                                <div class="chat-content">
+                                    <ul class="chatapp-chat-nicescroll-bar pt-20">
+                                        @foreach (DTOStepFlowSummary item in Model)
+                                        {
+                                            <li class="friend">
+                                                <div class="friend-msg-wrap">
+                                                    <img class="user-img img-circle block pull-left" src="https://localhost:44360/tags/images/chatbot.png" alt="user" />
+                                                    <div class="msg pull-left">
+                                                        <small class="clearfix mb-5">Robot</small>
+                                                        <p>@item.Question</p>
+                                                        <div class="msg-per-detail text-right">
+                                                            <span class="msg-time txt-grey">@item.CreatedDate.ToString("HH:mm")</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </li>
+                                            <li class="self">
+                                                <div class="self-msg-wrap">
+                                                    <div class="msg block pull-right">
+                                                        <small class="clearfix mb-5">@item.Username</small>
+                                                        @item.Option
+                                                        <div class="msg-per-detail text-right">
+                                                            <span class="msg-time txt-grey">@item.CreatedDate.ToString("HH:mm")</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </li>
+                                            if (item.NextStep != null && item == Model.LastOrDefault())
+                                            {
+                                                <li class="friend">
+                                                    <div class="friend-msg-wrap">
+                                                        <img class="user-img img-circle block pull-left" src="https://localhost:44360/tags/images/chatbot.png" alt="user" />
+                                                        <div class="msg pull-left">
+                                                            <small class="clearfix mb-5">Robot</small>
+                                                            <p>@item.NextStep</p>
+                                                            <div class="msg-per-detail text-right">
+                                                                <span class="msg-time txt-grey">@item.CreatedDate.ToString("HH:mm")</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+
+                                        @if (flow.Status == 0)
+                                        {
+                                            <center>Akış Bitti</center>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section FooterSection{
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+}

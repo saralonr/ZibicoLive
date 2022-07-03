@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Genel Ayarlar"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<GeneralSettingPOCO>
+
+<div class="panel panel-default card-view" style="padding:5px;margin-bottom:0;">
+    <div class="panel-body" style="padding:5px;">
+        <div class="pull-left">
+            <a href="/Settings/Create" class="btn btn-success">Yeni Ayar</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-5"></div>
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <div class="alert alert-warning alert-dismissable mt-20 mb-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <i class="zmdi zmdi-alert-circle-o pr-15 pull-left"></i><p class="pull-left">Bu kısımda yapacağınız değişiklikler sistemin çalışmasını olumsuz etkileyebilir. Yalnızca yetkili bilgisi dahilinde müdahale edilmelidir..</p>
+                <div class="clearfix"></div>
+            </div>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="table-wrap mt-20">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Ayar Adı</th>
+                                <th>Key</th>
+                                <th>Value</th>
+                                <th>Açıklama</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (GeneralSettingPOCO item in Model.OrderBy(x => x.ID).ToList())
+                            {
+                                <tr id="item_@item.ID">
+                                    <td>@item.DisplayName</td>
+                                    <td>@item.SettingKey</td>
+                                    <td>@(item.SettingValue?.Length > 50 ? item.SettingValue.Substring(0, 50) + "..." : item.SettingValue)</td>
+                                    <td>@(item.Description)</td>
+                                    <td class="text-nowrap">
+                                        <a href="/Settings/Create/@item.ID" class="mr-25" data-toggle="tooltip" data-original-title="Düzenle"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section FooterSection{
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+}

@@ -1,0 +1,102 @@
+﻿@{
+    DTOLive live = ViewBag.DTOLive;
+    bool isLast = false;
+}
+
+<div id="live-chat">
+    <input type="hidden" name="livechat-datavalue" id="livechat-datavalue" value="@ViewBag.ConnectionId" />
+    <input type="hidden" name="livechat-session" id="livechat-session" value="@HttpContext.Current.Session.SessionID" />
+    <input type="hidden" name="livechat-last" id="livechat-last" value="@ViewBag.LastConnection" />
+    <div class="chat-header cs-clearfix">
+        <a href="javascript:void(0)" class="chat-close">x</a>
+        <h4><span id="livechat-username">Merhaba</span> - Hoşgeldiniz</h4>
+    </div>
+    <div class="chat" style="display:none;">
+        <div class="chat-history" id="live-chat-history-area" style="display:none;">
+            @if (live != null && live.Steps != null)
+            {
+                foreach (var stepItem in live.Steps)
+                {
+                    <div class="chat-message cs-clearfix">
+                        <img src="@ViewBag.ScriptServer/tags/images/chatbot.png" alt="" width="32" height="32">
+                        <div class="chat-message-content cs-clearfix">
+                            <span class="chat-time">@(live.Values.FirstOrDefault(x => x.StepID == stepItem.ID) != null ? live.Values.FirstOrDefault(x => x.StepID == stepItem.ID).CreatedDate.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))</span>
+                            <b>Robot</b>
+                            <p class="" data-step="@stepItem.StepNumber">@stepItem.Question</p>
+
+                            @if (!live.Values.Any(x => x.StepID == stepItem.ID))
+                            {
+                                isLast = true;
+                                <ul class="live-chat-step">
+                                    @foreach (var optionItem in live.Options.Where(x => x.StepID == stepItem.ID).ToList())
+                                    {
+                                        <li class="live-chat-option">
+                                            <button class="btn btn-primary btn-xs live-step-option" type="button" data-step-option="@optionItem.UniqueId"> @optionItem.OptionDescription</button>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    <hr>
+
+                    if (live.Values.Any(x => x.StepID == stepItem.ID))
+                    {
+                        <div class="chat-message cs-clearfix">
+                            <img src="@ViewBag.ScriptServer/tags/images/users.png" alt="" width="32" height="32">
+                            <div class="chat-message-content cs-clearfix">
+                                <span class="chat-time">@(live.Values.FirstOrDefault(x => x.StepID == stepItem.ID) != null ? live.Values.FirstOrDefault(x => x.StepID == stepItem.ID).CreatedDate.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm"))</span>
+                                <b>@ViewBag.LastConnection</b>
+                                <p class="">@(live.Options.FirstOrDefault(x => x.StepID == stepItem.ID && live.Values.Any(y => y.StepID == stepItem.ID && x.ID == y.OptionID)).OptionDescription)</p>
+                            </div>
+                        </div>
+                        <hr>
+                    }
+
+                    if (isLast)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            @*<div class="chat-message cs-clearfix">
+                    <img src="https://picsum.photos/id/1027/32/32" alt="" width="32" height="32">
+                    <div class="chat-message-content cs-clearfix">
+                        <span class="chat-time">13:35</span>
+                        <b>John Doe</b>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, explicabo quasi ratione odio dolorum harum.</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="chat-message cs-clearfix">
+                    <img src="https://picsum.photos/id/1026/32/32" alt="" width="32" height="32">
+                    <div class="chat-message-content cs-clearfix">
+                        <span class="chat-time">13:37</span>
+                        <b>Marco Biedermann</b>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nulla accusamus magni vel debitis numquam qui tempora rem voluptatem delectus!</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="chat-message cs-clearfix">
+                    <img src="https://picsum.photos/id/1027/32/32" alt="" width="32" height="32">
+                    <div class="chat-message-content cs-clearfix">
+                        <span class="chat-time">13:38</span>
+                        <b>John Doe</b>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                    </div>
+                </div>*@
+        </div>
+        <div id="live-chat-login-area">
+            <form role="form">
+                <div class="form-group">
+                    <label class="control-label" for="login-chat-name">Adınız :</label>
+                    <input type="text" autocomplete="off" class="form-control" id="login-chat-name" placeholder="Adınız">
+                </div>
+                <div class="form-group">
+                    <button class="form-control btn btn-primary" type="button" id="login-chat-button">Giriş</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

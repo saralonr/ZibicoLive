@@ -1,0 +1,195 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ZibicoLive - @ViewBag.Title</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Onur Saral" />
+    <meta name="robots" content="noindex">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="">
+    <link rel="icon" href="" type="image/x-icon">
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Jasny-bootstrap CSS -->
+    <link href="/Contents/vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Data table CSS -->
+    <link href="/Contents/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- switchery CSS -->
+    <link href="/Contents/vendors/bower_components/switchery/dist/switchery.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Bootstrap Datetimepicker CSS -->
+    <link href="/Contents/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- select2 CSS -->
+    <link href="/Contents/vendors/bower_components/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap-touchspin CSS -->
+    <link href="/Contents/vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css">
+    <!-- multi-select CSS -->
+    <link href="/Contents/vendors/bower_components/multiselect/css/multi-select.css" rel="stylesheet" type="text/css">
+    <!-- form-wizard CSS -->
+    <link rel="stylesheet" href="/Contents/vendors/bower_components/jquery.steps/demo/css/jquery.steps.css">
+    <link href="/Contents/vendors/bower_components/jquery-wizard.js/css/wizard.css" rel="stylesheet" type="text/css">
+    <!-- bootstrap-select CSS -->
+    <link href="/Contents/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Contents/vendors/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet" type="text/css">
+
+    @RenderSection("HeaderSection", false)
+    <!-- Custom CSS -->
+    <link href="/Contents/dist/css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        function autoSelect() {
+            var liElement;
+            var clickedElement;
+            $(".sub-li").each(function (i, v) {
+                $(v).find("li").each(function (h, g) {
+                    var windowURL = $(g).find("a").attr("href");
+                    if (window.location.href.indexOf(windowURL) > -1) {
+                        liElement = v;
+                        clickedElement = g;
+                    }
+                });
+            }).promise().done(function () {
+                $(clickedElement).find("a").css('background-color', '#f2f2f2');
+                $(liElement).removeClass("collapsed");
+                $(liElement).find("ul").addClass("in");
+            });
+        }
+    </script>
+</head>
+<body>
+    <!--Preloader-->
+    <div class="preloader-it">
+        <div class="la-anim-1"></div>
+    </div>
+    <!--/Preloader-->
+
+    <div class="wrapper theme-1-active pimary-color-red">
+        <!-- Top Menu Items -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="mobile-only-brand pull-left">
+                <div class="nav-header pull-left">
+                    <div class="logo-wrap">
+                        <a href="/">
+                            <img class="brand-img" src="~/Contents/img/logo.png" />
+                            <span class="brand-text">ZibicoLive</span>
+                        </a>
+                    </div>
+                </div>
+                <a id="toggle_nav_btn" class="toggle-left-nav-btn inline-block ml-20 pull-left" href="javascript:void(0);"><i class="zmdi zmdi-menu"></i></a>
+                <a id="toggle_mobile_nav" class="mobile-only-view" href="javascript:void(0);"><i class="zmdi zmdi-more"></i></a>
+
+            </div>
+            <div id="mobile_only_nav" class="mobile-only-nav pull-right">
+                <ul class="nav navbar-right top-nav pull-right">
+                    <li class="dropdown auth-drp">
+                        <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="/Contents/img/noimage.png" alt="user_auth" class="user-auth-img img-circle" /><span class="user-online-status"></span></a>
+                        <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/yonetim/cikis-yap"><i class="zmdi zmdi-power"></i><span>Çıkış</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /Top Menu Items -->
+        <!-- Left Sidebar Menu -->
+
+        <div class="fixed-sidebar-left">
+            <ul class="nav navbar-nav side-nav nicescroll-bar">
+                <li class="navigation-header">
+                    <span>Menü</span>
+                    <i class="zmdi zmdi-more"></i>
+                </li>
+                <li>
+                    <a href="/Conversations/list">Sohbetler</a>
+                </li>
+                <li>
+                    <a href="/Step/list">Akış Ayarları</a>
+                </li>
+                <li>
+                    <a href="/Settings/List">Genel Ayarlar</a>
+                </li>
+                <li><hr class="light-grey-hr mb-10" /></li>
+            </ul>
+        </div>
+        <!-- /Left Sidebar Menu -->
+        <!-- Main Content -->
+        <div class="page-wrapper">
+            <div class="container-fluid">
+
+                <div class="row mt-15">
+                    <div class="col-md-12">
+                        @RenderBody()
+                    </div>
+
+                </div>
+                <!-- Footer -->
+                <footer class="footer container-fluid pl-30 pr-30">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>2019 &copy; ZibicoLive - <a target="_blank" href="https://www.saralonur.com"><small>Support</small></a></p>
+                        </div>
+                    </div>
+                </footer>
+                <!-- /Footer -->
+            </div>
+        </div>
+        <!-- /Main Content -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- JavaScript -->
+    <!-- jQuery -->
+    <script src="/Contents/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/Contents/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/Contents/vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">*@
+    <!-- Data table JavaScript -->
+    <script src="/Contents/vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/Contents/dist/js/dataTables-data.js"></script>
+    <!-- Moment JavaScript -->
+    <script src="/Contents/vendors/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <!-- Bootstrap Datetimepicker JavaScript -->
+    <script src="/Contents/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Bootstrap Touchspin JavaScript -->
+    <script src="/Contents/vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <!-- Multiselect JavaScript -->
+    <script src="/Contents/vendors/bower_components/multiselect/js/jquery.multi-select.js"></script>
+    <!-- Bootstrap Switch JavaScript -->
+    <script src="/Contents/vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <!-- Slimscroll JavaScript -->
+    <script src="/Contents/dist/js/jquery.slimscroll.js"></script>
+    <!-- Form Wizard Data JavaScript -->
+    <script src="/Contents/vendors/bower_components/jquery.steps/build/jquery.steps.min.js"></script>
+    <!-- Owl JavaScript -->
+    <script src="//Contents/vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+    <!-- Switchery JavaScript -->
+    <script src="/Contents/vendors/bower_components/switchery/dist/switchery.min.js"></script>
+    <!-- Fancy Dropdown JS -->
+    <script src="/Contents/dist/js/dropdown-bootstrap-extended.js"></script>
+    <!-- select2 JS -->
+    <script src="/Contents/vendors/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- Bootstrap Select JavaScript -->
+    <script src="/Contents/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/Contents/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+    @RenderSection("FooterSection", false)
+    <!-- Form Advance Init JavaScript -->
+    <script src="/Contents/dist/js/form-advance-data.js"></script>
+    <!-- Init JavaScript -->
+    <script src="/Contents/dist/js/init.js"></script>
+    <script src="/Contents/dist/js/scripts.js"></script>
+    <script>
+        autoSelect();
+    </script>
+</body>
+</html>

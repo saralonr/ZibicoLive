@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Ayar Güncelleme"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GeneralSettingPOCO
+
+@section HeaderSection{
+
+}
+<div class="panel panel-default card-view" style="padding:5px;margin-bottom:0;">
+    <div class="panel-body" style="padding:5px;">
+        <div class="pull-left">
+            <a href="/Settings/List" class="btn btn-primary"><i class="fa fa-arrow-left mr-10"></i>Listeye Dön</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-5"></div>
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@ViewBag.ErrorMessage
+                </div>
+            }
+            <div class="form-wrap">
+                <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.DisplayName, "Ayar Adı:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.DisplayName, new { @class = "form-control", type = "text", placeholder = "Ayar adı giriniz." })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SettingKey, "Key:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.SettingKey, new { @class = "form-control", type = "text", placeholder = "Key giriniz." })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.SettingValue, "Value:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(x => x.SettingValue, new { @class = "form-control", type = "text", placeholder = "Değer giriniz.", rows = "3" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Description, "Açıklama:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", type = "text", placeholder = "Açıklama giriniz.", rows = "3" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success btn-anim"><i class="fa fa-floppy-o"></i><span class="btn-text">Kaydet</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section FooterSection{
+
+}

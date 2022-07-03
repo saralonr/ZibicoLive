@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Müşteri Akış Mesajları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model PetaPoco.Page<DTOStepFlow>
+
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="table-wrap mt-20">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Session</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Durum</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DTOStepFlow item in Model.Items)
+                            {
+                            <tr id="item_@item.GroupKey">
+                                <td>#@item.GroupKey</td>
+                                <td>@item.SessionKey</td>
+                                <td>@item.Username</td>
+                                <td>@(item.Status== 0 ? "Akış Bitti" : "Akış Devam Ediyor")</td>
+                                <td class="text-nowrap">
+                                    <a href="/Conversations/Create/@item.GroupKey" class="mr-25" data-toggle="tooltip" data-original-title="İncele"> <i class="fa fa-search m-r-10"></i> </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="pagination pagination-split pull-right">
+
+                    @{
+                        string param = "";
+                        foreach (string prm in Request.QueryString.AllKeys)
+                        {
+                            if (prm == "page" || prm == null)
+                            {
+                                continue;
+                            }
+                            param += prm + "=" + Request.QueryString[prm] + "&";
+                        }
+                    }
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <li> <a href="/Conversations/List?@param"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
+                        <li> <a href="/Conversations/List?page=@(Model.CurrentPage-1)&@param"><i class="fa fa-angle-left"></i></a></li>
+                    }
+
+                    @for (var page = 1; page <= Model.TotalPages; page++)
+                    {
+                        <li class="@(page == Model.CurrentPage ? "active" : "")"> <a href="/Conversations/List?page=@(page)&@param">@page</a> </li>
+                    }
+
+                    @if (Model.CurrentPage < Model.TotalPages)
+                    {
+
+                        <li> <a href="/Conversations/List?page=@(Model.CurrentPage + 1)&@param"><i class="fa fa-angle-right"></i></a></li>
+                        <li> <a href="/Conversations/List?page=@(Model.TotalPages)&@param"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section FooterSection{
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+}

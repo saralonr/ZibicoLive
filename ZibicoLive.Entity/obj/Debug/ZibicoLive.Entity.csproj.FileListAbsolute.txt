@@ -1,0 +1,6 @@
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\bin\Debug\ZibicoLive.Entity.dll
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\bin\Debug\ZibicoLive.Entity.pdb
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\obj\Debug\ZibicoLive.Entity.csproj.AssemblyReference.cache
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\obj\Debug\ZibicoLive.Entity.csproj.CoreCompileInputs.cache
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\obj\Debug\ZibicoLive.Entity.dll
+C:\Users\Onur\source\repos\ZibicoLive\ZibicoLive.Entity\obj\Debug\ZibicoLive.Entity.pdb

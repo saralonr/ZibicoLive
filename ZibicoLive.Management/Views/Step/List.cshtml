@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Akış Mesajları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<StepOptionPOCO> stepOptions = ViewBag.StepOptions;
+}
+@model PetaPoco.Page<StepPOCO>
+
+<div class="panel panel-default card-view" style="padding:5px;margin-bottom:0;">
+    <div class="panel-body" style="padding:5px;">
+        <div class="pull-left">
+            <a href="/Step/Create" class="btn btn-success">Yeni Akış Mesajı</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-5"></div>
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@TempData["SuccessMessage"]
+                </div>
+            }
+            <div class="table-wrap mt-20">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Sıra</th>
+                                <th>Mesaj</th>
+                                <th>Tür</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (StepPOCO item in Model.Items.OrderBy(x => x.StepNumber).ToList())
+                            {
+                                <tr id="item_@item.ID"   @(item.IsFinished == false ? @"onclick=$(this).next().slideToggle()" : "")>
+                                    <td>#@item.StepNumber</td>
+                                    <td>@item.Question</td>
+                                    <td>@(item.IsFinished == true ? "Akış Sonu" : "")</td>
+                                    <td class="text-nowrap">
+                                        <a href="/Step/Create/@item.ID" class="mr-25" data-toggle="tooltip" data-original-title="Düzenle"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                        <a href="javascript:DeleteModal('@item.ID','Step')" data-toggle="tooltip" data-original-title="Sil"><i class="fa fa-close text-danger"></i> </a>
+                                    </td>
+                                </tr>
+
+                                if (item.IsFinished == false)
+                                {
+                                    <tr style="display:none;">
+                                        <td colspan="4">
+                                            <div class="panel panel-default card-view">
+                                                <div class="panel-heading">
+                                                    <div class="pull-left">
+                                                        <h6 class="panel-title txt-dark" style="font-weight:bold;">Seçenekler</h6>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body">
+                                                        <div>
+                                                            @foreach (StepOptionPOCO option in stepOptions.Where(x => x.StepID == item.ID).ToList())
+                                                            {
+                                                               
+                                                            <span class="pull-left inline-block capitalize-font txt-dark">
+                                                                <i class="zmdi zmdi-format-list-bulleted inline-block mr-10 font-16"></i>
+                                                                @option.OptionDescription
+                                                            </span>
+                                                                <div class="clearfix"></div>
+
+                                                                if (option != stepOptions.LastOrDefault(x => x.StepID == item.ID))
+                                                                {
+                                                                    <hr class="light-grey-hr row mt-10 mb-10">
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="pagination pagination-split pull-right">
+
+                    @{
+                        string param = "";
+                        foreach (string prm in Request.QueryString.AllKeys)
+                        {
+                            if (prm == "page" || prm == null)
+                            {
+                                continue;
+                            }
+                            param += prm + "=" + Request.QueryString[prm] + "&";
+                        }
+                    }
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <li> <a href="/Step/List?@param"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
+                        <li> <a href="/Step/List?page=@(Model.CurrentPage-1)&@param"><i class="fa fa-angle-left"></i></a></li>
+                    }
+
+                    @for (var page = 1; page <= Model.TotalPages; page++)
+                    {
+                        <li class="@(page == Model.CurrentPage ? "active" : "")"> <a href="/Step/List?page=@(page)&@param">@page</a> </li>
+                    }
+
+                    @if (Model.CurrentPage < Model.TotalPages)
+                    {
+
+                        <li> <a href="/Step/List?page=@(Model.CurrentPage + 1)&@param"><i class="fa fa-angle-right"></i></a></li>
+                        <li> <a href="/Step/List?page=@(Model.TotalPages)&@param"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section FooterSection{
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+
+}

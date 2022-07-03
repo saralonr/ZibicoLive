@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.ClientTest", "ZibicoLive.ClientTest\ZibicoLive.ClientTest.csproj", "{4524B9F3-05B0-46A6-BD5A-28485A6A6BE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.Socket", "ZibicoLive.Socket\ZibicoLive.Socket.csproj", "{043F9DD3-1E9D-4FB6-A5B6-29C591B21F13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.Core", "ZibicoLive.Core\ZibicoLive.Core.csproj", "{9439D208-BC10-48D0-8FBD-F6C7A7DF2BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.Entity", "ZibicoLive.Entity\ZibicoLive.Entity.csproj", "{1470F96C-0940-401C-9A8B-99A58A56D718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.Script", "ZibicoLive.Script\ZibicoLive.Script.csproj", "{D42E7D6C-7C01-4C98-91BD-8454FD2DAFCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZibicoLive.Management", "ZibicoLive.Management\ZibicoLive.Management.csproj", "{C8E06555-AB3A-4A71-A47E-D4FF37CA732C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4524B9F3-05B0-46A6-BD5A-28485A6A6BE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4524B9F3-05B0-46A6-BD5A-28485A6A6BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4524B9F3-05B0-46A6-BD5A-28485A6A6BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4524B9F3-05B0-46A6-BD5A-28485A6A6BE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{043F9DD3-1E9D-4FB6-A5B6-29C591B21F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{043F9DD3-1E9D-4FB6-A5B6-29C591B21F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{043F9DD3-1E9D-4FB6-A5B6-29C591B21F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{043F9DD3-1E9D-4FB6-A5B6-29C591B21F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9439D208-BC10-48D0-8FBD-F6C7A7DF2BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9439D208-BC10-48D0-8FBD-F6C7A7DF2BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9439D208-BC10-48D0-8FBD-F6C7A7DF2BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9439D208-BC10-48D0-8FBD-F6C7A7DF2BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1470F96C-0940-401C-9A8B-99A58A56D718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1470F96C-0940-401C-9A8B-99A58A56D718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1470F96C-0940-401C-9A8B-99A58A56D718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1470F96C-0940-401C-9A8B-99A58A56D718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D42E7D6C-7C01-4C98-91BD-8454FD2DAFCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42E7D6C-7C01-4C98-91BD-8454FD2DAFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42E7D6C-7C01-4C98-91BD-8454FD2DAFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42E7D6C-7C01-4C98-91BD-8454FD2DAFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8E06555-AB3A-4A71-A47E-D4FF37CA732C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E06555-AB3A-4A71-A47E-D4FF37CA732C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E06555-AB3A-4A71-A47E-D4FF37CA732C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E06555-AB3A-4A71-A47E-D4FF37CA732C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C502B4C-8909-4FAC-8CCB-87DA677E7189}
+	EndGlobalSection
+EndGlobal

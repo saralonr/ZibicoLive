@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Akış Mesajı Ekleme/Güncelleme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<StepOptionPOCO> options = ViewBag.StepOptions == null ? new List<StepOptionPOCO>() : ViewBag.StepOptions;
+    List<StepPOCO> nextSteps = ViewBag.Steps;
+}
+@model StepPOCO
+
+@section HeaderSection{
+
+}
+<div class="panel panel-default card-view" style="padding:5px;margin-bottom:0;">
+    <div class="panel-body" style="padding:5px;">
+        <div class="pull-left">
+            <a href="/Step/List" class="btn btn-primary"><i class="fa fa-arrow-left mr-10"></i>Listeye Dön</a>
+        </div>
+    </div>
+</div>
+<div class="clearfix mb-5"></div>
+<div class="panel panel-default card-view">
+    <div class="panel-heading">
+        <div class="pull-left">
+            <h6 class="panel-title txt-dark">@ViewBag.Title</h6>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger alert-dismissable mt-20">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>@ViewBag.ErrorMessage
+                </div>
+            }
+            <div class="form-wrap">
+                <form class="form-horizontal" enctype="multipart/form-data" action="" method="post">
+
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Question, "Akış Mesajı:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextAreaFor(x => x.Question, new { @class = "form-control", placeholder = "Akış mesajı giriniz." })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.StepNumber, "Step No:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            @Html.TextBoxFor(x => x.StepNumber, new { @class = "form-control", type = "number" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.IsFinished, "Akış Türü:", new { @class = "control-label mb-10 col-sm-2" })
+                        <div class="col-sm-6">
+                            <select class="form-control" id="IsFinished" name="IsFinished">
+                                <option value="false">Normal</option>
+                                <option value="true">Akış Sonu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label mb-10 col-sm-2">Seçenekler</label>
+                        <div class="col-sm-6">
+                            <div class="col-md-12 pl-0 pr-0 mb-10">
+                                <button class="btn btn-success pull-right" type="button" onclick="AddStepOption()">Yeni</button>
+                            </div>
+                            <div id="StepOptionsArea">
+                                @if (options.Any())
+                                {
+                                    foreach (StepOptionPOCO item in options)
+                                    {
+                                        <div class="StepOptionTemplate">
+                                            <div class="col-md-7 pl-0">
+                                                <input type="hidden" name="StepOptionID" value="@item.ID" />
+                                                <input class="form-control" type="text" name="StepOption" value="@item.OptionDescription" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="form-control col-md-4" name="StepOptionNextStep">
+                                                    @foreach (StepPOCO nextStepItem in nextSteps)
+                                                    {
+                                                        <option @(item.NextStepID == nextStepItem.ID ? "selected" : "") value="@nextStepItem.ID">NO: #@nextStepItem.StepNumber - @nextStepItem.Question</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-danger col-md-1" onclick="DeleteStepOption(this)" type="button">Sil</button>
+                                            <div class="clearfix mb-5"></div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="StepOptionTemplate">
+                                        <div class="col-md-7 pl-0">
+                                            <input class="form-control" type="text" value="" name="NewStepOption" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-control col-md-4" name="NewStepOptionNextStep">
+                                                @foreach (StepPOCO nextStepItem in nextSteps)
+                                                {
+                                                    <option value="@nextStepItem.ID">NO: #@nextStepItem.StepNumber - @nextStepItem.Question</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-danger col-md-1" onclick="DeleteStepOption(this)" type="button">Sil</button>
+                                        <div class="clearfix mb-5"></div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success btn-anim"><i class="fa fa-floppy-o"></i><span class="btn-text">Kaydet</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="template-clone" style="display:none;">
+    <div class="StepOptionTemplate">
+        <div class="col-md-7 pl-0">
+            <input class="form-control" type="text" value="" name="NewStepOption" />
+        </div>
+        <div class="col-md-4">
+            <select class="form-control col-md-4" name="NewStepOptionNextStep">
+                @foreach (StepPOCO nextStepItem in nextSteps)
+                {
+                    <option value="@nextStepItem.ID">NO: #@nextStepItem.StepNumber - @nextStepItem.Question</option>
+                }
+            </select>
+        </div>
+        <button class="btn btn-danger col-md-1" onclick="DeleteStepOption(this)" type="button">Sil</button>
+        <div class="clearfix mb-5"></div>
+    </div>
+</div>
+
+
+
+@section FooterSection{
+    <script>
+        function AddStepOption() {
+            var cloneStep = $(".template-clone .StepOptionTemplate").clone();
+            $("#StepOptionsArea").append(cloneStep);
+        }
+        function DeleteStepOption(e) {
+            $(e).closest(".StepOptionTemplate").remove();
+        }
+    </script>
+}
